@@ -8,7 +8,7 @@ module.exports = {
     connection: settings.connectionString,
     pool: {
       min: 0,
-      max: 10
+      max: 10,
     },
     migrations: {
       directory: __dirname + '/migrations',

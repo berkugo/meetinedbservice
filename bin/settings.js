@@ -5,6 +5,7 @@ const settings =
     username: "postgres",
     password: "lmao",
     database: "meetine",
+
 }
 const connectionString = `postgres://${settings.username}:${settings.password}@${settings.host}:${settings.port}/${settings.database}`
 
