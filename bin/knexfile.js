@@ -1,7 +1,5 @@
 const settings = require('./settings')
 
-
-
 module.exports = {
   development: {
     client: 'postgresql',
