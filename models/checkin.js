@@ -10,10 +10,11 @@ module.exports = {
             properties: {
                 uid: {type: 'string'},
                 placeid: {type: 'string'},
+                city: {type: 'string'},
                 ctype: {type: 'integer'},
                 note: {type: 'string'},
             },
-            required: ['uid', 'placeid', 'ctype', 'note']
+            required: ['uid', 'placeid', 'ctype', 'note', 'city']
 
         }
 
@@ -26,14 +27,23 @@ module.exports = {
     },
     crud: {
         insertNewCheckin: (data) => {
-            return dbManager(tableName).insert({a: 5}).then(result => {
+            return dbManager(tableName).insert(data).then(result => {
                 if(result)
                         return true;
-                    else
+                else
                         return false;
             })
         },
+        getCheckinsByCity: async (city) => {
+
+            const result = await dbManager(tableName).select().where('city', city.toLowerCase()).andWhere('status', 1)
+            if (result)
+                return Promise.resolve(result)
+            else
+                return Promise.resolve(false)
+        },
         getCheckinByUserID: async (userid) => {
+
             const result = await dbManager(tableName).select().where('uid', userid)
             if (result)
                 return Promise.resolve(result)
@@ -41,15 +51,6 @@ module.exports = {
                 return Promise.resolve(false)
 
         },
-        removeCheckinById: async (userid) => {
-            const result = await dbManager(tableName).delete().where('uid', userid)
-            if (result)
-                return Promise.resolve(result)
-            else
-                return Promise.resolve(false)
-
-        }
-
 
     }
 }

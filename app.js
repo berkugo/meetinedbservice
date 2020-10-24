@@ -1,10 +1,10 @@
 const app = require('fastify')({ logger: true })
 const checkinRoute = require('./routes/checkin.js')
-const settings = require('./bin/knexfile')
-const dbManager = require('knex')(settings.development)
+const placesRoute = require('./routes/places.js')
+const usersRoute = require('./routes/users.js')
 
 
-app.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body, done) {
+app.addContentTypeParser('application/json', { parseAs: 'string' },  (req, body, done) => {
     try {
         const json = JSON.parse(body)
         done(null, json)
@@ -15,7 +15,9 @@ app.addContentTypeParser('application/json', { parseAs: 'string' }, function (re
 })
 
 app.register(checkinRoute.setHandlers.bind(checkinRoute), { prefix: "/checkin" })
-//app.register(placesRoute.setHandlers.bind(placesRoute), { prefix: "/places" }) // example
+app.register(placesRoute.setHandlers.bind(placesRoute), { prefix: "/places" })
+app.register(usersRoute.setHandlers.bind(usersRoute), { prefix: "/users" })
+
 
 
 
@@ -26,11 +28,7 @@ app.register(checkinRoute.setHandlers.bind(checkinRoute), { prefix: "/checkin" }
 app.listen(3000, async (err, address) => {
 
         if(!err) {
-            const connection = await dbManager.select().from('knex_migrations')
-            if(connection.length < 0){
-                    app.log.error("Database connection problem.")
-                    return process.exit(1)
-            }
+
             return app.log.info('Connected to Meetine database.')
         }
         else {
