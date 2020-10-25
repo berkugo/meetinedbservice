@@ -20,7 +20,6 @@ module.exports = {
              })
          }, */
         getUserByID: async (userid) => {
-            console.log(userid)
             const result = await dbManager.raw(`SELECT * FROM ${tableName} WHERE data ->> 'enc' = '${userid}'`)
             if (result)
                 return Promise.resolve(result)
