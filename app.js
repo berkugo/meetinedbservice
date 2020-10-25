@@ -25,7 +25,7 @@ app.register(usersRoute.setHandlers.bind(usersRoute), { prefix: "/users" })
 
 
 // Run the server!
-app.listen(3000, async (err, address) => {
+app.listen(process.env.SERVICE_PORT, async (err, address) => {
 
         if(!err) {
 

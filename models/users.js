@@ -20,21 +20,22 @@ module.exports = {
              })
          }, */
         getUserByID: async (userid) => {
-            const result = await dbManager.raw(`SELECT * FROM ${tableName} WHERE data ->> 'enc' = 'KNQWY5DFMRPV6BZ76S25SCCA5J7YJSQ%3D'`)
+            console.log(userid)
+            const result = await dbManager.raw(`SELECT * FROM ${tableName} WHERE data ->> 'enc' = '${userid}'`)
             if (result)
                 return Promise.resolve(result)
             else
                 return Promise.resolve(false)
 
         },
-       /* getUsersByIDS: async (idArray) => {
+        getUsersByIDS: async (idArray) => {
 
-            const result = await dbManager(tableName).select().whereRaw('uid', idArray)
+            const result = await dbManager.raw(`SELECT * FROM ${tableName} WHERE data ->> 'enc' in '${idArray}'`)
             if (result)
                 return Promise.resolve(result)
             else
                 return Promise.resolve(false)
-        } */
+        }
 
     }
 }

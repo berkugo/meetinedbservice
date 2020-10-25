@@ -11,14 +11,6 @@ module.exports = {
         return {status: 404, message: message}
     },
     crud: {
-       /* insertNewPlace: (data) => {
-            return dbManager(tableName).insert({a: 5}).then(result => {
-                if(result)
-                    return true;
-                else
-                    return false;
-            })
-        }, */
         getPlaceByID: async (placeid) => {
             const result = await dbManager(tableName).select().where('id', placeid)
             if (result)
